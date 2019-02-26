@@ -1,0 +1,52 @@
+---
+kind: pipeline
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+x-defaults:
+  publish: &publish
+    depends_on:
+      - clone
+    image: plugins/docker
+    settings: &publish-settings
+      password:
+        from_secret: docker-hub.password
+      username:
+        from_secret: docker-hub.username
+    when:
+      # branch:
+      #   - master
+      event:
+        - push
+
+steps:
+  - <<: *publish
+    name: publish (aws-cli)
+    settings:
+      <<: *publish-settings
+      dockerfile: aws-cli/Dockerfile
+      repo: 72636c/aws-cli
+      tags:
+        - 1
+        - 1.16
+        - 1.16-${DRONE_COMMIT_SHA}
+        - latest
+
+  - <<: *publish
+    name: publish (golang)
+    settings:
+      <<: *publish-settings
+      dockerfile: golang/Dockerfile
+      repo: 72636c/golang
+      tags:
+        - 1
+        - 1.11
+        - 1.11-${DRONE_COMMIT_SHA}
+        - latest
+
+---
+kind: signature
+hmac: 13516c02378ea495aabc0b617cb3b2de8196600a75474359edecfa5a91f374ac
