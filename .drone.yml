@@ -43,10 +43,10 @@ steps:
       repo: 72636c/golang
       tags:
         - 1
-        - 1.11
-        - 1.11-${DRONE_COMMIT_SHA}
+        - 1.12
+        - 1.12-${DRONE_COMMIT_SHA}
         - latest
 
 ---
 kind: signature
-hmac: 7a5288a674563767fa553cb120c7bb316443fbe13e3f7bf2850b94de37fa0602
+hmac: 189d3e8bb831e77cb0cc103f86e1cafd48ced8050aab9a40fa1ef2c8d7dee217
