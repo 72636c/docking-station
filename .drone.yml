@@ -7,11 +7,24 @@ platform:
   arch: amd64
 
 x-defaults:
-  publish: &publish
+  build: &build
     depends_on:
       - clone
     image: plugins/docker
-    settings: &publish-settings
+    settings: &build-settings
+      dry_run: true
+    when:
+      branch:
+        exclude:
+          - master
+      event:
+        - push
+
+  push: &push
+    depends_on:
+      - clone
+    image: plugins/docker
+    settings: &push-settings
       password:
         from_secret: docker-hub.password
       username:
@@ -23,10 +36,24 @@ x-defaults:
         - push
 
 steps:
-  - <<: *publish
-    name: publish (aws-cli)
+  - <<: *build
+    name: build (aws-cli)
     settings:
-      <<: *publish-settings
+      <<: *build-settings
+      dockerfile: aws-cli/Dockerfile
+      repo: 72636c/aws-cli
+
+  - <<: *build
+    name: build (golang)
+    settings:
+      <<: *build-settings
+      dockerfile: golang/Dockerfile
+      repo: 72636c/golang
+
+  - <<: *push
+    name: push (aws-cli)
+    settings:
+      <<: *push-settings
       dockerfile: aws-cli/Dockerfile
       repo: 72636c/aws-cli
       tags:
@@ -35,10 +62,10 @@ steps:
         - 1.16-${DRONE_COMMIT_SHA}
         - latest
 
-  - <<: *publish
-    name: publish (golang)
+  - <<: *push
+    name: push (golang)
     settings:
-      <<: *publish-settings
+      <<: *push-settings
       dockerfile: golang/Dockerfile
       repo: 72636c/golang
       tags:
@@ -49,4 +76,4 @@ steps:
 
 ---
 kind: signature
-hmac: 189d3e8bb831e77cb0cc103f86e1cafd48ced8050aab9a40fa1ef2c8d7dee217
+hmac: e488d5899ba6972272a0d347fb9659a4d12e2e551d8148255578021c58316f4e
