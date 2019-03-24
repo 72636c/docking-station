@@ -18,6 +18,7 @@ x-defaults:
         exclude:
           - master
       event:
+        - pull_request
         - push
 
   push: &push
@@ -76,4 +77,4 @@ steps:
 
 ---
 kind: signature
-hmac: e488d5899ba6972272a0d347fb9659a4d12e2e551d8148255578021c58316f4e
+hmac: b2f49cd580e4452f914356e72101373749a6e03805f7b5dad10a1140466d89df
