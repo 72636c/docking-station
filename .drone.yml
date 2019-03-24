@@ -14,10 +14,8 @@ x-defaults:
     settings: &build-settings
       dry_run: true
     when:
-      branch:
-        exclude:
-          - master
       event:
+        - pull_request
         - push
 
   push: &push
@@ -76,4 +74,4 @@ steps:
 
 ---
 kind: signature
-hmac: e488d5899ba6972272a0d347fb9659a4d12e2e551d8148255578021c58316f4e
+hmac: c4d9c1cf7f0ec35b4368731108d44361b0a578a2360ba5edf80fa29883434768
