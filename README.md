@@ -5,6 +5,8 @@ Status](https://cloud.drone.io/api/badges/72636c/docking-station/status.svg)](ht
 
 ## Repositories
 
-- <https://hub.docker.com/r/72636c/aws-cli>
+- ~~<https://hub.docker.com/r/72636c/aws-cli>~~
 
-- <https://hub.docker.com/r/72636c/golang>
+  Superseded by **<https://hub.docker.com/r/amazon/aws-cli>**.
+
+- **<https://hub.docker.com/r/72636c/golang>**
