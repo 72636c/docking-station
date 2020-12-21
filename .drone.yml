@@ -52,6 +52,13 @@ steps:
       dockerfile: golang/Dockerfile
       repo: 72636c/golang
 
+  - <<: *build
+    name: build (mdbook)
+    settings:
+      <<: *build-settings
+      dockerfile: mdbook/Dockerfile
+      repo: 72636c/mdbook
+
   - <<: *push
     name: push (aws-cli)
     settings:
@@ -76,6 +83,17 @@ steps:
         - 1.14-${DRONE_COMMIT_SHA}
         - latest
 
+  - <<: *push
+    name: push (mdbook)
+    settings:
+      <<: *push-settings
+      dockerfile: mdbook/Dockerfile
+      repo: 72636c/mdbook
+      tags:
+        - 0.4.4
+        - 0.4.4-${DRONE_COMMIT_SHA}
+        - latest
+
 ---
 kind: signature
-hmac: 4deb48326b630dd670c561b551d8287f886d6b1e9791d0a1a24dbfeefb827f81
+hmac: 0f98edda2fde15dc5bf71da0d5007df9506f278d51e4d6d3a8c1a7704aef2832
