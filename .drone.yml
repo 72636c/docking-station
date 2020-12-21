@@ -13,6 +13,10 @@ x-defaults:
     image: plugins/docker
     settings: &build-settings
       dry_run: true
+      password:
+        from_secret: docker-hub.password
+      username:
+        from_secret: docker-hub.username
     when:
       event:
         - pull_request
@@ -74,4 +78,4 @@ steps:
 
 ---
 kind: signature
-hmac: 262fad5e1c537af6137bc1ed7eb1d14c16b6b8cedfe9334137b7e7b5b4b194b3
+hmac: 4deb48326b630dd670c561b551d8287f886d6b1e9791d0a1a24dbfeefb827f81
