@@ -90,10 +90,10 @@ steps:
       dockerfile: mdbook/Dockerfile
       repo: 72636c/mdbook
       tags:
-        - 0.4.4
-        - 0.4.4-${DRONE_COMMIT_SHA}
+        - 0.4.5
+        - 0.4.5-${DRONE_COMMIT_SHA}
         - latest
 
 ---
 kind: signature
-hmac: 0f98edda2fde15dc5bf71da0d5007df9506f278d51e4d6d3a8c1a7704aef2832
+hmac: 741de66d923e7ef1286e8ffc8a791d3aab01fead62299f59f79d9a4121e19e56
