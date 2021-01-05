@@ -5,7 +5,7 @@ ARG TARGET=x86_64-unknown-linux-musl
 RUN apt-get update && \
     apt-get install --assume-yes --no-install-recommends musl-tools && \
     rustup target add "${TARGET}" && \
-    cargo install mdbook --target "${TARGET}" --version 0.4.4 && \
+    cargo install mdbook --target "${TARGET}" --version 0.4.5 && \
     cargo install mdbook-svgbob --target "${TARGET}" --version 0.1.1
 
 FROM alpine:3.12
