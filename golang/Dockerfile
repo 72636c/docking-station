@@ -1,4 +1,4 @@
-FROM golang:1.14-stretch
+FROM golang:1.19-stretch
 
 RUN apt-get update && apt-get install --assume-yes zip
 
