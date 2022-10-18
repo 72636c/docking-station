@@ -1,47 +1,30 @@
 ---
 kind: pipeline
+type: docker
 name: default
 
 platform:
   os: linux
   arch: amd64
 
-x-defaults:
-  build: &build
+steps:
+  - &build
     depends_on:
       - clone
     image: plugins/docker
+    when:
+      event:
+        - pull_request
+        - push
+
+    name: build (aws-cli)
     settings: &build-settings
       dry_run: true
       password:
         from_secret: docker-hub.password
       username:
         from_secret: docker-hub.username
-    when:
-      event:
-        - pull_request
-        - push
 
-  push: &push
-    depends_on:
-      - clone
-    image: plugins/docker
-    settings: &push-settings
-      password:
-        from_secret: docker-hub.password
-      username:
-        from_secret: docker-hub.username
-    when:
-      branch:
-        - master
-      event:
-        - push
-
-steps:
-  - <<: *build
-    name: build (aws-cli)
-    settings:
-      <<: *build-settings
       dockerfile: aws-cli/Dockerfile
       repo: 72636c/aws-cli
 
@@ -59,10 +42,23 @@ steps:
       dockerfile: mdbook/Dockerfile
       repo: 72636c/mdbook
 
-  - <<: *push
+  - &push
+    depends_on:
+      - clone
+    image: plugins/docker
+    when:
+      branch:
+        - master
+      event:
+        - push
+
     name: push (aws-cli)
-    settings:
-      <<: *push-settings
+    settings: &push-settings
+      password:
+        from_secret: docker-hub.password
+      username:
+        from_secret: docker-hub.username
+
       dockerfile: aws-cli/Dockerfile
       repo: 72636c/aws-cli
       tags:
@@ -79,8 +75,8 @@ steps:
       repo: 72636c/golang
       tags:
         - 1
-        - 1.14
-        - 1.14-${DRONE_COMMIT_SHA}
+        - 1.19
+        - 1.19-${DRONE_COMMIT_SHA}
         - latest
 
   - <<: *push
@@ -90,10 +86,12 @@ steps:
       dockerfile: mdbook/Dockerfile
       repo: 72636c/mdbook
       tags:
-        - 0.4.5
-        - 0.4.5-${DRONE_COMMIT_SHA}
+        - 0.4.21
+        - 0.4.21-${DRONE_COMMIT_SHA}
         - latest
 
 ---
 kind: signature
-hmac: 741de66d923e7ef1286e8ffc8a791d3aab01fead62299f59f79d9a4121e19e56
+hmac: 045c37de9b8e7bcd7f4e870020f0bcf9bc0c20b79502251a493026cb531e81c8
+
+...
