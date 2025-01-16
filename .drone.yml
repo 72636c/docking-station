@@ -5,7 +5,7 @@ name: default
 
 platform:
   os: linux
-  arch: amd64
+  arch: arm64
 
 steps:
   - &build
@@ -92,6 +92,6 @@ steps:
 
 ---
 kind: signature
-hmac: b9f90f18bb63e21b09e4514c121a2580c89eceaaeac943169e235f4f6e6c9d96
+hmac: 5dfaea947b2594c43fc4313011228ad7fa67bc32cd87f93a4029d4a02e1cd2aa
 
 ...
