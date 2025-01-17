@@ -42,7 +42,7 @@ jobs:
           push: true
           tags: |
             0.4.43
-            0.4.43-${GITHUB_SHA}
+            0.4.43-${{ github.sha }}
             latest
 
       - name: Generate artifact attestation
