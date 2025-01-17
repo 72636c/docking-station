@@ -42,7 +42,7 @@ jobs:
           push: true
           tags: |
             0.4.43
-            0.4.43-${DRONE_COMMIT_SHA}
+            0.4.43-${GITHUB_SHA}
             latest
 
       - name: Generate artifact attestation
