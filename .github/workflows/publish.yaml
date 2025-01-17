@@ -41,9 +41,9 @@ jobs:
           file: mdbook/Dockerfile
           push: true
           tags: |
-            0.4.43
-            0.4.43-${{ github.sha }}
-            latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:0.4.43
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:0.4.43-${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
