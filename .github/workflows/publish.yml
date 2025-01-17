@@ -35,14 +35,14 @@ jobs:
           cache-to: type=gha,mode=max
           context: .
           file: mdbook/Dockerfile
-          push: ${{ github.ref == github.event.repository.default_branch }}
+          push: ${{ github.ref_name == github.event.repository.default_branch }}
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:0.4.43
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:0.4.43-${{ github.sha }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
       - name: Generate attestation
-        if: github.ref == github.event.repository.default_branch
+        if: github.ref_name == github.event.repository.default_branch
         uses: actions/attest-build-provenance@v2
         with:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
